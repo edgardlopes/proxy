@@ -33,9 +33,9 @@ class LocationHeaderRewritingFilter extends ZuulFilter {
         Route route = routeLocator.getMatchingRoute(urlPathHelper.getPathWithinApplication(ctx.getRequest()));
         if (route != null) {
             Pair<String, String> lh = locationHeader(ctx)
-            lh.second = lh.second().replace(
-                route.getLocation(),
-                ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString())
+            def upstream = route.getLocation()
+            def downstream = ServletUriComponentsBuilder.fromCurrentContextPath().path(route.prefix).build().toUriString()
+            lh.second = lh.second().replace(upstream, downstream)
         }
     }
 

@@ -1,6 +1,10 @@
 ---
 zuul:
   routes:
-    reports:
+    demo:
       path: /**
       url: http://127.0.0.1:8180
+      sensitiveHeaders:
+logging.level:
+  com.netflix.zuul: DEBUG
+  org.springframework.cloud.netflix: DEBUG
